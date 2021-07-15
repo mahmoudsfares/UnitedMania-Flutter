@@ -21,7 +21,10 @@ class ArticleListItem extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Image(image: NetworkImage(article.image), width: double.infinity),
+              FadeInImage(
+                  image: NetworkImage(article.image),
+                  placeholder: AssetImage('assets/placeholder.jpg'),
+                  width: double.infinity),
               Padding(
                 padding: EdgeInsets.fromLTRB(8, 16, 0, 0),
                 child: Text(
