@@ -3,7 +3,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:united_mania/helper_layout/article_list_item.dart';
+import 'package:united_mania/helper_layout/paging_first_page_error_indicator.dart';
 import 'package:united_mania/models/ApiResponse.dart';
+
+import '../../helper_layout/paging_new_page_error.dart';
 
 class ArticlesPagination extends StatefulWidget {
   @override
@@ -39,6 +42,16 @@ class _ArticlesListViewState extends State<ArticlesPagination> {
         pagingController: _pagingController,
         builderDelegate: PagedChildBuilderDelegate<Article>(
           itemBuilder: (context, item, index) => ArticleListItem(article: item),
+          firstPageErrorIndicatorBuilder: (_) => FirstPageErrorIndicator(
+            onTryAgain: () => _pagingController.refresh(),
+          ),
+          newPageErrorIndicatorBuilder: (_) => NewPageErrorIndicator(
+            onTryAgain: () => _pagingController.retryLastFailedRequest(),
+          ),
+          noMoreItemsIndicatorBuilder: (_) => Padding(
+            padding: EdgeInsets.all(8),
+            child: Text("That's it :)"),
+          ),
         ),
       );
 

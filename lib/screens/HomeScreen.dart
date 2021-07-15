@@ -1,10 +1,7 @@
-import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
-import 'package:united_mania/helper_layout/articles_listview_paginated.dart';
-import 'package:united_mania/helper_layout/article_list_item.dart';
+import 'package:united_mania/screens/paging/articles_listview_paginated.dart';
 import 'package:united_mania/models/ApiResponse.dart';
 
 class Home extends StatefulWidget {
