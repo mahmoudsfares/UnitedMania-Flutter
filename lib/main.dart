@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '/screens/HomeScreen.dart';
-import '/screens/ArticleDetailsScreen.dart';
+import 'screens/home/home_screen.dart';
+import 'screens/article_details/article_details_screen.dart';
 
 void main() => runApp(MaterialApp(
       debugShowCheckedModeBanner: false,

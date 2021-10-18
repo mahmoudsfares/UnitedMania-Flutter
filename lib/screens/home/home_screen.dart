@@ -1,8 +1,8 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:united_mania/screens/paging/articles_listview_paginated.dart';
-import 'package:united_mania/models/ApiResponse.dart';
+import 'package:get/get.dart';
+import 'package:united_mania/screens/home/home_controller.dart';
+import 'package:united_mania/screens/home/pagination/articles_listview_paginated.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -12,12 +12,8 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  List<Article> news = [];
 
-  @override
-  void initState() {
-    super.initState();
-  }
+  HomeController _controller = Get.put(HomeController());
 
   @override
   Widget build(BuildContext context) {
@@ -29,9 +25,14 @@ class _HomeState extends State<Home> {
       body: Container(
         color: Colors.red[600],
         width: double.infinity,
-        child:
-            Padding(padding: EdgeInsets.all(16), child: ArticlesPagination()),
+        child: Padding(padding: EdgeInsets.all(16), child: ArticlesPagination()),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 }

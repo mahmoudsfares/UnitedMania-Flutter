@@ -1,14 +1,16 @@
-import 'dart:convert';
 import 'package:flutter/cupertino.dart';
-import 'package:http/http.dart';
+import 'package:get/get.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:united_mania/helper_layout/article_list_item.dart';
-import 'package:united_mania/helper_layout/paging_first_page_error_indicator.dart';
-import 'package:united_mania/models/ApiResponse.dart';
-
-import '../../helper_layout/paging_new_page_error.dart';
+import 'package:united_mania/models/data.dart';
+import 'package:united_mania/screens/home/home_controller.dart';
+import 'package:united_mania/screens/home/pagination/paging_first_page_error_indicator.dart';
+import 'package:united_mania/screens/home/pagination/paging_new_page_error.dart';
+import 'article_list_item.dart';
 
 class ArticlesPagination extends StatefulWidget {
+
+  final HomeController _controller = Get.find<HomeController>();
+
   @override
   _ArticlesListViewState createState() => _ArticlesListViewState();
 }
@@ -29,7 +31,7 @@ class _ArticlesListViewState extends State<ArticlesPagination> {
 
   Future<void> _fetchPage(int page) async {
     try {
-      List<Article> articles = await fetchArticles(pageSize, page);
+      List<Article> articles = await widget._controller.fetchArticles(pageSize, page);
       page = page + 1;
       _pagingController.appendPage(articles, page);
     } catch (error) {
@@ -59,16 +61,5 @@ class _ArticlesListViewState extends State<ArticlesPagination> {
   void dispose() {
     _pagingController.dispose();
     super.dispose();
-  }
-
-  Future<dynamic> fetchArticles(int pageSize, int page) async {
-    Response response = await get(Uri.parse(
-        ApiResponseBody.API_URL + "&pageSize=$pageSize" + "&page=$page"));
-    if (response.statusCode == 200) {
-      Map<String, dynamic> jsonParsed = json.decode(response.body);
-      ApiResponseBody responseBody = ApiResponseBody.fromJson(jsonParsed);
-      return responseBody.articles;
-    } else
-      throw Exception('Failed to load data!');
   }
 }
