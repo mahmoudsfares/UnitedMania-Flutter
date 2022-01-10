@@ -2,14 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:united_mania/models/data.dart';
-import 'package:united_mania/screens/home/home_controller.dart';
+import 'package:united_mania/screens/home/home_service.dart';
 import 'package:united_mania/screens/home/pagination/paging_first_page_error_indicator.dart';
 import 'package:united_mania/screens/home/pagination/paging_new_page_error.dart';
 import 'article_list_item.dart';
 
 class ArticlesPagination extends StatefulWidget {
 
-  final HomeController _controller = Get.find<HomeController>();
+  final HomeService _service = Get.put(HomeService());
 
   @override
   _ArticlesListViewState createState() => _ArticlesListViewState();
@@ -31,7 +31,7 @@ class _ArticlesListViewState extends State<ArticlesPagination> {
 
   Future<void> _fetchPage(int page) async {
     try {
-      List<Article> articles = await widget._controller.fetchArticles(pageSize, page);
+      List<Article> articles = await widget._service.fetchArticles(pageSize, page);
       page = page + 1;
       _pagingController.appendPage(articles, page);
     } catch (error) {

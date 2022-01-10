@@ -7,7 +7,7 @@ class ArticleListItem extends StatelessWidget {
 
   final Article article;
 
-  const ArticleListItem({required this.article, Key? key}) : super(key: key);
+  const ArticleListItem({required this.article});
 
   @override
   Widget build(BuildContext context) {

@@ -1,19 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:united_mania/screens/home/home_controller.dart';
 import 'package:united_mania/screens/home/pagination/articles_listview_paginated.dart';
 
-class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
 
-  @override
-  _HomeState createState() => _HomeState();
-}
-
-class _HomeState extends State<Home> {
-
-  HomeController _controller = Get.put(HomeController());
+class Home extends GetView {
 
   @override
   Widget build(BuildContext context) {
@@ -28,11 +19,5 @@ class _HomeState extends State<Home> {
         child: Padding(padding: EdgeInsets.all(16), child: ArticlesPagination()),
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
   }
 }
